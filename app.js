@@ -5,16 +5,12 @@ const db = require("./config/database");
 const app = express();
 app.use(bodyParser.json());
 
+//user routes
+app.use("/user", require("./routes/user"));
 
-
-app.get("/", (req, res) => {
-  console.log("GET /");
-  res.send("Hello World!");
-});
-
-
-
+//connect to database
 db.authenticate()
   .then(() => console.log("Connection has been established successfully."))
   .catch((err) => console.log(err));
+//start server
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
