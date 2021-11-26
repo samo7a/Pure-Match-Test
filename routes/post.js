@@ -11,14 +11,36 @@ const multer = require("multer");
 const upload = multer({ dest: "./uploads/" });
 const router = express.Router();
 
-router.post("/create", upload.single("image"), async (req, res) => {
-  // res.send("create");
-  const file = req.file;
-  console.log(file);
-  const result = await uploadImage(file);
-  await unlink(file.path);
-  const url = result.Location;
-  console.log(url);
-  res.send("create");
-});
+router.post(
+  "/create",
+  authenicateUser,
+  upload.single("image"),
+  async (req, res) => {
+    const { title, description, uid } = req.body;
+    const file = req.file;
+    let photo_url;
+    try {
+      const result = await uploadImage(file);
+      photo_url = result.Location;
+      const post = await Post.create({
+        title,
+        description,
+        photo_url,
+        uid,
+      });
+      await unlink(file.path);
+      res.status(200).json({
+        error: false,
+        message: "Post created successfully",
+        post,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        error: true,
+        message: "Error Creating Post: " + error.message,
+      });
+    }
+  }
+);
 module.exports = router;

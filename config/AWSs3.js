@@ -25,6 +25,5 @@ const uploadImage = (file) => {
   return s3.upload(params).promise();
 };
 
-//get file from s3
 
 exports.uploadImage = uploadImage;
