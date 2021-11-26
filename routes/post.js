@@ -115,4 +115,25 @@ router.get("/", authenicateUser, async (req, res) => {
     });
   }
 });
+
+router.post("/edit", authenicateUser, async (req, res) => {
+  const { title, description, post_id } = req.body;
+  try {
+    const post = await Post.findOne({ where: { post_id: post_id } });
+    if (title) post.title = title;
+    if (description) post.description = description;
+    await post.save();
+    res.status(200).json({
+      error: false,
+      message: "Post edited successfully",
+      post,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: true,
+      message: "Error fetching post: " + error.message,
+    });
+  }
+});
 module.exports = router;

@@ -31,8 +31,9 @@ The following **required** functionality is completed:
   - Created an endpoint to add a post to the database.
   - Using the access token to create the post
 
-    <img src='https://github.com/samo7a/Pure-Match-Test/blob/req1/readmeImages/createPostHeader.png' title='header' width='' alt='header' />
-   <img src='https://github.com/samo7a/Pure-Match-Test/blob/req1/readmeImages/createPost.png' title='createPost' width='' alt='createPost' />
+   <img src='https://github.com/samo7a/Pure-Match-Test/blob/req1/readmeImages/createPostHeader.png' title='header' width='' alt='header' />
+
+  <img src='https://github.com/samo7a/Pure-Match-Test/blob/req1/readmeImages/createPost.png' title='createPost' width='' alt='createPost' />
 
 ### req2
 
@@ -59,9 +60,9 @@ The following **required** functionality is completed:
    <img src='https://github.com/samo7a/Pure-Match-Test/blob/req1/readmeImages/fivePhotos.png' title='fivePhotos' width='' alt='fivePhotos' />
 
 - [x] A post can be editied.
-  - Created an S3 Bucket and connected it to the server.
-  - Created a function to upload the image to the bucket and get the url to store in the database.
-  - Created an endpoint to add a post to the database.
-  - Using the access token to create the post
-    <img src='https://github.com/samo7a/Pure-Match-Test/blob/req1/readmeImages/createPostHeader.png' title='header' width='' alt='header' />
-    <img src='https://github.com/samo7a/Pure-Match-Test/blob/req1/readmeImages/createPost.png' title='createPost' width='' alt='createPost' />
+
+  - Created an endpoint to edit the title, description, but not the photos. ((I can do it, but I need more info on how to implement it!))
+
+    <img src='https://github.com/samo7a/Pure-Match-Test/blob/req1/readmeImages/editPost1.png' title='edit' width='' alt='edit' />
+
+    <img src='https://github.com/samo7a/Pure-Match-Test/blob/req1/readmeImages/editPost2.png' title='edit' width='' alt='edit' />
