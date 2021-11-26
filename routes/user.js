@@ -28,21 +28,22 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  const user = await User.findOne({ where: { email: email } });
-
-  if (!user) {
-    return res.status(401).json({
-      success: false,
-      msg: "No user with this email",
-    });
-  }
 
   try {
+    const user = await User.findOne({ where: { email: email } });
+
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        msg: "Wrong Email/Password Pair!",
+      });
+    }
+
     const match = comparePassword(password, user.password);
     if (!match) {
       return res.status(401).json({
         success: false,
-        msg: "Password does not match",
+        msg: "Wrong Email/Password Pair!",
       });
     }
     const token = createToken(user);
@@ -65,21 +66,28 @@ router.post("/login", async (req, res) => {
 
 router.post("/logout", async (req, res) => {
   const { uid, refreshToken } = req.body;
-  const user = await User.findOne({
-    where: { uid: uid, refreshToken: refreshToken },
-  });
-  if (!user) {
-    return res.status(401).json({
+  try {
+    const user = await User.findOne({
+      where: { uid: uid, refreshToken: refreshToken },
+    });
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        msg: "No user with this refresh token",
+      });
+    }
+    user.refreshToken = null;
+    await user.save();
+    res.status(200).json({
+      success: true,
+      msg: "User logged out",
+    });
+  } catch (err) {
+    res.status(500).json({
       success: false,
-      msg: "No user with this refresh token",
+      msg: err,
     });
   }
-  user.refreshToken = null;
-  await user.save();
-  res.status(200).json({
-    success: true,
-    msg: "User logged out",
-  });
 });
 
 module.exports = router;
