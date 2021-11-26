@@ -42,21 +42,31 @@ const timeSince = (date) => {
 router.post(
   "/create",
   authenicateUser,
-  upload.single("image"),
+  // upload.single("image"),
+  upload.array("images", 5),
   async (req, res) => {
     const { title, description, uid } = req.body;
-    const file = req.file;
-    let photo_url;
+    const files = req.files;
+    var photo_urls = [];
     try {
-      const result = await uploadImage(file);
-      photo_url = result.Location;
+      for (let file of files) {
+        const result = await uploadImage(file);
+        photo_urls.push(result.Location);
+      }
+      var photos = "{";
+      for (let photo of photo_urls) {
+        photos += `${photo} ,`;
+      }
+      photos = photos.substring(0, photos.length - 1);
+      photos += "}";
+      console.log(photos);
       const post = await Post.create({
         title,
         description,
-        photo_url,
+        photo_urls,
         uid,
       });
-      await unlink(file.path);
+      // await unlink(file.path);
       res.status(200).json({
         error: false,
         message: "Post created successfully",

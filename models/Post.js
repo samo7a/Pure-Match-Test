@@ -19,8 +19,8 @@ const Post = db.define(
       unique: true,
       allowNull: false,
     },
-    photo_url: {
-      type: DataTypes.STRING,
+    photo_urls: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
     uid: {

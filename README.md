@@ -25,12 +25,13 @@ The following **required** functionality is completed:
    <img src='https://github.com/samo7a/Pure-Match-Test/blob/req1/readmeImages/login.png' title='login' width='' alt='login' />
 
 - [x] Logged in users can create a post. Post has 3 attribues title, description and a photo.
+
   - Created an S3 Bucket and connected it to the server.
   - Created a function to upload the image to the bucket and get the url to store in the database.
   - Created an endpoint to add a post to the database.
   - Using the access token to create the post
-   <img src='https://github.com/samo7a/Pure-Match-Test/blob/req1/readmeImages/createPostHeader.png' title='header' width='' alt='header' />
-   
+
+    <img src='https://github.com/samo7a/Pure-Match-Test/blob/req1/readmeImages/createPostHeader.png' title='header' width='' alt='header' />
    <img src='https://github.com/samo7a/Pure-Match-Test/blob/req1/readmeImages/createPost.png' title='createPost' width='' alt='createPost' />
 
 ### req2
@@ -52,16 +53,15 @@ The following **required** functionality is completed:
 
 - [x] A post can have multiple photos but atmost 5.
 
-  - Used jsonwebtoken package to create access and refresh tokens.
-  - Created an endpoint to check if the email and password match a user from the database.
+  - Changed the upload middlefunction to accept at most 5 files
+  - Changed the datatype of the image url from a String to array of Strings.
 
-   <img src='https://github.com/samo7a/Pure-Match-Test/blob/req1/readmeImages/login.png' title='login' width='' alt='login' />
+   <img src='https://github.com/samo7a/Pure-Match-Test/blob/req1/readmeImages/fivePhotos.png' title='fivePhotos' width='' alt='fivePhotos' />
 
 - [x] A post can be editied.
   - Created an S3 Bucket and connected it to the server.
   - Created a function to upload the image to the bucket and get the url to store in the database.
   - Created an endpoint to add a post to the database.
   - Using the access token to create the post
-   <img src='https://github.com/samo7a/Pure-Match-Test/blob/req1/readmeImages/createPostHeader.png' title='header' width='' alt='header' />
-   
-   <img src='https://github.com/samo7a/Pure-Match-Test/blob/req1/readmeImages/createPost.png' title='createPost' width='' alt='createPost' />
+    <img src='https://github.com/samo7a/Pure-Match-Test/blob/req1/readmeImages/createPostHeader.png' title='header' width='' alt='header' />
+    <img src='https://github.com/samo7a/Pure-Match-Test/blob/req1/readmeImages/createPost.png' title='createPost' width='' alt='createPost' />
