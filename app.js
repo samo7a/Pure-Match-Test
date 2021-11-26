@@ -7,7 +7,8 @@ app.use(bodyParser.json());
 
 //user routes
 app.use("/user", require("./routes/user"));
-
+// posts routes
+app.use("/post", require("./routes/post"));
 //connect to database
 db.authenticate()
   .then(() => console.log("Connection has been established successfully."))
