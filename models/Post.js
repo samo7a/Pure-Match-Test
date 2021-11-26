@@ -27,9 +27,14 @@ const Post = db.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
   },
   {
-    timestamps: false,
+    createdAt: "createdAt",
+    updatedAt: false,
   }
 );
 
