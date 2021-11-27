@@ -34,7 +34,6 @@ router.post(
         photo_urls,
         uid,
       });
-      // await unlink(file.path);
       res.status(200).json({
         error: false,
         message: "Post created successfully",
@@ -51,15 +50,36 @@ router.post(
 );
 
 router.get("/posts", authenicateUser, async (req, res) => {
-  const { uid } = req.body;
+  const { uid, page } = req.body;
+  const limit = 2;
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+  const results = {};
+
   try {
+    const count = await Post.count({
+      where: { uid: uid },
+    });
+    if (endIndex < count) {
+      results.next = {
+        page: page + 1,
+        limit: limit,
+      };
+    }
+    if (startIndex > 0) {
+      results.previous = {
+        page: page - 1,
+        limit: limit,
+      };
+    }
     const posts = await Post.findAll({
+      offset: startIndex,
+      limit: limit,
       where: { uid: uid },
     });
     var posts_array = [];
     for (let post of posts) {
       const post_id = post.post_id;
-      // var comments = [];
       const comments = await Comment.findAll({ where: { post_id: post_id } });
       const time = timeSince(post.createdAt);
       const obj = {
@@ -74,10 +94,11 @@ router.get("/posts", authenicateUser, async (req, res) => {
       };
       posts_array.push(obj);
     }
+    results.posts = posts_array;
     res.status(200).json({
       error: false,
       message: "Posts fetched successfully",
-      posts: posts_array,
+      results,
     });
   } catch (error) {
     console.log(error);
