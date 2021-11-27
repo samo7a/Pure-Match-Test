@@ -1,48 +1,16 @@
 const express = require("express");
 const Post = require("../models/Post");
-// const  timeSince  = require("../models/Post");
-const { hashPassword, comparePassword } = require("../config/auth");
+const Comment = require("../models/Comment");
 const { uploadImage } = require("../config/AWSs3");
-const fs = require("fs");
-const util = require("util");
-const unlink = util.promisify(fs.unlink);
-
 const { authenicateUser } = require("../config/jwt");
 const multer = require("multer");
-const { route } = require("./user");
 const upload = multer({ dest: "./uploads/" });
 const router = express.Router();
-const timeSince = (date) => {
-  var seconds = Math.floor((new Date() - date) / 1000);
-
-  var interval = seconds / 31536000;
-
-  if (interval > 1) {
-    return Math.floor(interval) + " years";
-  }
-  interval = seconds / 2592000;
-  if (interval > 1) {
-    return Math.floor(interval) + " months";
-  }
-  interval = seconds / 86400;
-  if (interval > 1) {
-    return Math.floor(interval) + " days";
-  }
-  interval = seconds / 3600;
-  if (interval > 1) {
-    return Math.floor(interval) + " hours";
-  }
-  interval = seconds / 60;
-  if (interval > 1) {
-    return Math.floor(interval) + " minutes";
-  }
-  return Math.floor(seconds) + " seconds";
-};
+const { timeSince } = require("../config/misc");
 
 router.post(
   "/create",
   authenicateUser,
-  // upload.single("image"),
   upload.array("images", 5),
   async (req, res) => {
     const { title, description, uid } = req.body;
@@ -82,7 +50,7 @@ router.post(
   }
 );
 
-router.get("/", authenicateUser, async (req, res) => {
+router.get("/posts", authenicateUser, async (req, res) => {
   const { uid } = req.body;
   try {
     const posts = await Post.findAll({
@@ -90,15 +58,19 @@ router.get("/", authenicateUser, async (req, res) => {
     });
     var posts_array = [];
     for (let post of posts) {
+      const post_id = post.post_id;
+      // var comments = [];
+      const comments = await Comment.findAll({ where: { post_id: post_id } });
       const time = timeSince(post.createdAt);
       const obj = {
-        post_id: post.post_id,
+        post_id,
         title: post.title,
         description: post.description,
         photo_url: post.photo_url,
         uid: post.uid,
         createdAt: post.createdAt,
         timeSinceCreated: time,
+        comments,
       };
       posts_array.push(obj);
     }

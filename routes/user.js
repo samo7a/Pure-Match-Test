@@ -1,6 +1,6 @@
 const express = require("express");
 const User = require("../models/User");
-const { hashPassword, comparePassword } = require("../config/auth");
+const { hashPassword, comparePassword } = require("../config/misc");
 const { createToken, createRefreshToken } = require("../config/jwt");
 const router = express.Router();
 

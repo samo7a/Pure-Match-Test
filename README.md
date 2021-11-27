@@ -66,3 +66,17 @@ The following **required** functionality is completed:
     <img src='https://github.com/samo7a/Pure-Match-Test/blob/main/readmeImages/editPost1.png' title='edit' width='' alt='edit' />
 
     <img src='https://github.com/samo7a/Pure-Match-Test/blob/main/readmeImages/editPost2.png' title='edit' width='' alt='edit' />
+
+### req3
+
+- [x] A post can have multiple comments. Comments will show the user who commented and the comment.
+
+  - Added a new table called Comments to the database.
+  - Added a new model to match the new table.
+
+  <img src='https://github.com/samo7a/Pure-Match-Test/blob/main/readmeImages/addComment.png' title='comment' width='' alt='add comment' />
+
+  <img src='https://github.com/samo7a/Pure-Match-Test/blob/main/readmeImages/getPostWithComment.png' title='comment' width='' alt='getPost' />
+
+- [x] Need to add pagination in the post and in the comments of the post.
+- [x] User have the option to create their username. Update the user model.
