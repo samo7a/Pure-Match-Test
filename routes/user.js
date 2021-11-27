@@ -1,7 +1,11 @@
 const express = require("express");
 const User = require("../models/User");
 const { hashPassword, comparePassword } = require("../config/misc");
-const { createToken, createRefreshToken } = require("../config/jwt");
+const {
+  createToken,
+  createRefreshToken,
+  authenicateUser,
+} = require("../config/jwt");
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
@@ -13,7 +17,6 @@ router.post("/register", async (req, res) => {
     email: email,
     password: hashedPassword,
   };
-  console.log(obj);
   try {
     const user = await User.create(obj);
     res.status(200).json({ success: true, msg: "User registered", user: user });
@@ -90,4 +93,21 @@ router.post("/logout", async (req, res) => {
   }
 });
 
+router.post("/addUserName", authenicateUser, async (req, res) => {
+  const { uid, userName } = req.body;
+  try {
+    const user = await User.findOne({ where: { uid } });
+
+    user.set({
+      userName,
+    });
+    await user.save();
+    res.status(200).json({ success: true, msg: "User name added", user: user });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      msg: err,
+    });
+  }
+});
 module.exports = router;

@@ -79,4 +79,9 @@ The following **required** functionality is completed:
   <img src='https://github.com/samo7a/Pure-Match-Test/blob/main/readmeImages/getPostWithComment.png' title='comment' width='' alt='getPost' />
 
 - [x] Need to add pagination in the post and in the comments of the post.
+
+<img src='https://github.com/samo7a/Pure-Match-Test/blob/main/readmeImages/getPostPage.png' title='comment' width='' alt='getPostpage' />
+
 - [x] User have the option to create their username. Update the user model.
+
+<img src='https://github.com/samo7a/Pure-Match-Test/blob/main/readmeImages/username.png' title='comment' width='' alt='getPostpage' />
